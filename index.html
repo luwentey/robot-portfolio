@@ -426,6 +426,7 @@
 
     /* PROJECTS */
     .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-top: 48px; }
+    .projects-grid a { text-decoration: none; color: inherit; }
     .project-card {
       background: var(--panel);
       border: 1px solid var(--border-dim);
@@ -743,24 +744,26 @@
   <p class="section-desc reveal">从概念到原型，每个项目都是一次从0到1的探索。</p>
   <div class="divider reveal"></div>
   <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-image">
-        <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1">
-          <circle cx="12" cy="12" r="3"/>
-          <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-        </svg>
-        <span class="project-year">2024</span>
-      </div>
-      <div class="project-body">
-        <div class="project-name">关节模组设计</div>
-        <div class="project-desc">高扭矩密度关节模组的完整设计，包含电机选型、减速器设计、编码器集成与驱动电路开发。</div>
-        <div class="project-tech">
-          <span>SolidWorks</span>
-          <span>STM32</span>
-          <span>FOC</span>
+    <a href="project-detail.html" style="text-decoration: none; color: inherit;">
+      <div class="project-card reveal">
+        <div class="project-image">
+          <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+          </svg>
+          <span class="project-year">2024</span>
+        </div>
+        <div class="project-body">
+          <div class="project-name">关节模组设计</div>
+          <div class="project-desc">高扭矩密度关节模组的完整设计，包含电机选型、减速器设计、编码器集成与驱动电路开发。</div>
+          <div class="project-tech">
+            <span>SolidWorks</span>
+            <span>STM32</span>
+            <span>FOC</span>
+          </div>
         </div>
       </div>
-    </div>
+    </a>
     <div class="project-card reveal">
       <div class="project-image">
         <svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#00e5ff" stroke-width="1">
