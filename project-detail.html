@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>项目详情 - ROBO.PORTFOLIO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:        #050810;
+      --bg2:       #080d1a;
+      --panel:     #0c1525;
+      --border:    #00e5ff;
+      --border-dim:#004d5a;
+      --accent:    #00e5ff;
+      --accent2:   #ff6b00;
+      --text:      #c8d6e5;
+      --text-dim:  #4a6075;
+      --glow:      rgba(0,229,255,0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Rajdhani', sans-serif;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, transparent 0px, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+      pointer-events: none;
+      z-index: 9999;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border); }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 40px;
+      background: rgba(5,8,16,0.95);
+      border-bottom: 1px solid var(--border-dim);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 900;
+      color: var(--accent);
+      letter-spacing: 3px;
+    }
+    .nav-logo span { color: var(--text); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 13px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 1px;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-back {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 12px;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 1px;
+    }
+    .nav-back:hover { color: var(--accent2); }
+
+    /* CONTENT */
+    .container { max-width: 1000px; margin: 0 auto; padding: 120px 40px 80px; }
+    .section-label {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+    .section-title::before { content: '// '; color: var(--accent); }
+    .divider {
+      width: 60px; height: 2px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      margin: 16px 0 40px;
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 48px 0;
+    }
+    .gallery-item {
+      background: var(--panel);
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .gallery-item:hover {
+      border-color: var(--border);
+      box-shadow: 0 8px 40px var(--glow);
+      transform: translateY(-4px);
+    }
+    .gallery-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, var(--bg2), var(--panel));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: var(--text-dim);
+      overflow: hidden;
+    }
+    .gallery-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .gallery-info {
+      padding: 20px;
+    }
+    .gallery-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .gallery-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ARTICLE */
+    .article {
+      background: var(--panel);
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      padding: 40px;
+      margin: 48px 0;
+    }
+    .article h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 32px 0 16px;
+      border-bottom: 1px solid var(--border-dim);
+      padding-bottom: 12px;
+    }
+    .article h2:first-child { margin-top: 0; }
+    .article h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      margin: 24px 0 12px;
+    }
+    .article p {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .article ul, .article ol {
+      margin-left: 24px;
+      margin-bottom: 16px;
+    }
+    .article li {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .article table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      font-size: 14px;
+    }
+    .article table th {
+      background: rgba(0,229,255,0.1);
+      border: 1px solid var(--border-dim);
+      padding: 12px;
+      text-align: left;
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .article table td {
+      border: 1px solid var(--border-dim);
+      padding: 12px;
+      color: var(--text);
+    }
+    .article table tr:hover { background: rgba(0,229,255,0.05); }
+    .article code {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border-dim);
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-family: 'Share Tech Mono', monospace;
+      color: var(--accent2);
+      font-size: 13px;
+    }
+    .article pre {
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border-dim);
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0;
+    }
+    .article pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+      font-size: 12px;
+    }
+
+    /* VIDEO */
+    .video-container {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border-dim);
+      margin: 32px 0;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border-dim);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    @media (max-width: 768px) {
+      .container { padding: 100px 20px 60px; }
+      .gallery { grid-template-columns: 1fr; }
+      .article { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ROBO<span>.</span>PORTFOLIO</div>
+  <a href="index.html" class="nav-back">← 返回首页</a>
+</nav>
+
+<!-- CONTENT -->
+<div class="container">
+  <!-- 项目一：关节模组 -->
+  <div class="section-label">// PROJECT 001</div>
+  <h1 class="section-title">关节模组设计</h1>
+  <div class="divider"></div>
+
+  <!-- 照片库 -->
+  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 20px; color: #fff; margin: 40px 0 24px;">项目照片</h2>
+  <div class="gallery">
+    <div class="gallery-item">
+      <div class="gallery-image">📷</div>
+      <div class="gallery-info">
+        <div class="gallery-title">设计渲染图</div>
+        <div class="gallery-desc">关节模组的 3D 设计效果图</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-image">📷</div>
+      <div class="gallery-info">
+        <div class="gallery-title">原型样机</div>
+        <div class="gallery-desc">第一代原型机装配完成</div>
+      </div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-image">📷</div>
+      <div class="gallery-info">
+        <div class="gallery-title">测试现场</div>
+        <div class="gallery-desc">性能测试和数据采集</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 视频演示 -->
+  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 20px; color: #fff; margin: 40px 0 24px;">演示视频</h2>
+  <p style="color: var(--text-dim); margin-bottom: 16px;">点击下方观看关节模组的运动演示和性能测试：</p>
+  <div class="video-container">
+    <!-- B站视频嵌入示例（替换为你的视频ID） -->
+    <iframe src="//player.bilibili.com/player.html?bvid=BV1xx411c7mD&page=1" 
+            scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+    </iframe>
+  </div>
+
+  <!-- 文章 -->
+  <h2 style="font-family: 'Orbitron', sans-serif; font-size: 20px; color: #fff; margin: 40px 0 24px;">设计文档</h2>
+  <div class="article">
+    <h2>关节模组设计笔记</h2>
+
+    <h3>项目背景</h3>
+    <p>这是一个高扭矩密度关节模组的完整设计项目，从电机选型、减速器设计、编码器集成到驱动电路开发的全流程记录。</p>
+
+    <h3>设计目标</h3>
+    <ul>
+      <li><strong>扭矩密度</strong>：&gt;50 N·m/kg</li>
+      <li><strong>精度</strong>：±0.1°</li>
+      <li><strong>响应时间</strong>：&lt;50ms</li>
+      <li><strong>工作温度</strong>：-10°C ~ 60°C</li>
+    </ul>
+
+    <h3>核心模块</h3>
+
+    <h4>1. 电机选型</h4>
+    <p>选择无刷直流电机（BLDC），主要参数：</p>
+    <ul>
+      <li>额定功率：200W</li>
+      <li>额定扭矩：2 N·m</li>
+      <li>额定转速：3000 RPM</li>
+      <li>效率：&gt;85%</li>
+    </ul>
+
+    <h4>2. 减速器设计</h4>
+    <p>采用谐波减速器方案：</p>
+    <ul>
+      <li>减速比：50:1</li>
+      <li>传动效率：65%</li>
+      <li>回程间隙：&lt;3'</li>
+    </ul>
+
+    <h4>3. 编码器集成</h4>
+    <p>使用多圈绝对值编码器：</p>
+    <ul>
+      <li>分辨率：16bit</li>
+      <li>通信协议：CANopen</li>
+      <li>工作温度：-20°C ~ 70°C</li>
+    </ul>
+
+    <h4>4. 驱动电路</h4>
+    <p>基于 STM32G4 的 FOC 控制器：</p>
+    <ul>
+      <li>支持 FOC 矢量控制</li>
+      <li>CAN 通信接口</li>
+      <li>过流/过压保护</li>
+      <li>实时温度监测</li>
+    </ul>
+
+    <h3>性能指标</h3>
+    <table>
+      <tr>
+        <th>指标</th>
+        <th>数值</th>
+      </tr>
+      <tr>
+        <td>最大扭矩</td>
+        <td>100 N·m</td>
+      </tr>
+      <tr>
+        <td>连续扭矩</td>
+        <td>50 N·m</td>
+      </tr>
+      <tr>
+        <td>最大转速</td>
+        <td>60 RPM</td>
+      </tr>
+      <tr>
+        <td>定位精度</td>
+        <td>±0.05°</td>
+      </tr>
+      <tr>
+        <td>重复精度</td>
+        <td>±0.02°</td>
+      </tr>
+      <tr>
+        <td>响应时间</td>
+        <td>30ms</td>
+      </tr>
+    </table>
+
+    <h3>关键技术方案</h3>
+
+    <h4>FOC 控制算法</h4>
+    <p>采用磁场定向控制（Field Oriented Control）：</p>
+    <ul>
+      <li>实时电流环控制</li>
+      <li>速度环 PID 调节</li>
+      <li>位置反馈闭环</li>
+    </ul>
+
+    <h4>热管理</h4>
+    <ul>
+      <li>铝合金散热壳体</li>
+      <li>导热硅脂填充</li>
+      <li>温度传感器实时监测</li>
+      <li>过温自动降功率</li>
+    </ul>
+
+    <h4>可靠性设计</h4>
+    <ul>
+      <li>双路冗余编码器</li>
+      <li>故障自诊断功能</li>
+      <li>安全状态自动切换</li>
+      <li>完整的故障日志记录</li>
+    </ul>
+
+    <h3>测试结果</h3>
+
+    <h4>静态测试</h4>
+    <ul>
+      <li>✅ 扭矩精度：±2%</li>
+      <li>✅ 温度漂移：&lt;0.1°/°C</li>
+      <li>✅ 噪声：&lt;70dB</li>
+    </ul>
+
+    <h4>动态测试</h4>
+    <ul>
+      <li>✅ 响应时间：28ms</li>
+      <li>✅ 超调量：&lt;5%</li>
+      <li>✅ 稳定时间：&lt;100ms</li>
+    </ul>
+
+    <h4>可靠性测试</h4>
+    <ul>
+      <li>✅ 连续运行 500h 无故障</li>
+      <li>✅ 温度循环 100 次无损伤</li>
+      <li>✅ 冲击测试：10G/3 轴通过</li>
+    </ul>
+
+    <h3>后续改进方向</h3>
+    <ol>
+      <li><strong>减速器优化</strong>：研究行星减速器方案，提升效率至 75%</li>
+      <li><strong>控制算法</strong>：引入机器学习自适应控制</li>
+      <li><strong>集成度</strong>：PCB 集成度提升 30%</li>
+      <li><strong>成本</strong>：目标成本降低 20%</li>
+    </ol>
+
+    <p style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-dim); color: var(--text-dim); font-size: 13px;">
+      <em>最后更新：2024-12-15</em>
+    </p>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div>ROBO.PORTFOLIO // 2024 // Built with passion</div>
+</footer>
+
+</body>
+</html>
